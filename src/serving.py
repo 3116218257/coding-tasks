@@ -8,9 +8,21 @@ else:
 from sglang.utils import wait_for_server, print_highlight, terminate_process
 
 server_process, port = launch_server_cmd(
-    "python3 -m sglang.launch_server --model-path Qwen/Qwen2.5-Coder-0.5B-Instruct --host 0.0.0.0 --mem-fraction-static 0.8 --context-length 32768 \
-    --max-total-tokens 61440 \
-    --max-prefill-tokens 16384"
+    "python3 -m sglang.launch_server "
+    "--model-path Qwen/Qwen2.5-Coder-0.5B-Instruct "
+    "--host 0.0.0.0 "
+    "--mem-fraction-static 0.85 "
+    "--context-length 32768 "
+    "--max-total-tokens 196608 "
+    "--max-prefill-tokens 49152 "
+    "--max-running-requests 1024 "
+    "--attention-backend flashinfer "
+    "--trust-remote-code "
+    "--prefill-attention-backend flashinfer "
+    "--decode-attention-backend flashinfer "
+    "--chunked-prefill-size 4096 "
+    "--watchdog-timeout 600 "
+    "--enable-torch-compile"
 )
 
 wait_for_server(f"http://localhost:{port}")
